@@ -30,6 +30,7 @@ def authenticate!
 end
 
 get '/' do
+  @events = Event.all
   erb :index
 end
 
@@ -48,6 +49,10 @@ get '/sign_out' do
   flash[:notice] = "You have been signed out."
 
   redirect '/'
+end
+
+get '/events/new' do
+  erb :'events/new'
 end
 
 get '/example_protected_page' do
