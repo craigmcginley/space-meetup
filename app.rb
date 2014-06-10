@@ -36,8 +36,17 @@ end
 
 get '/events/:id' do
   id = params[:id]
+  if id == "new"
+    if !signed_in?
+      flash[:notice] = "You must sign in to create an event!"
+      redirect '/'
+    else
+      erb :'events/new'
+    end
+  else
   @event = Event.find(id)
   erb :'events/show'
+  end
 end
 
 get '/auth/github/callback' do
