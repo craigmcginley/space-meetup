@@ -44,11 +44,13 @@ get '/events/:id' do
       erb :'events/new'
     end
   else
-  @event = Event.find(id)
-  @attendees = Attendee.where(event_id: id)
-  @attendee = Attendee.where(user_id: current_user.id, event_id: id)
-  @comments = Comment.where(event_id: id).order(created_at: :desc)
-  erb :'events/show'
+    @event = Event.find(id)
+    @attendees = Attendee.where(event_id: id)
+    if signed_in?
+      @attendee = Attendee.where(user_id: current_user.id, event_id: id)
+    end
+    @comments = Comment.where(event_id: id).order(created_at: :desc)
+    erb :'events/show'
   end
 end
 

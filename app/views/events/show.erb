@@ -10,15 +10,17 @@
   <% end %>
 </ul>
 
-<form action="/events/<%= @event.id %>" method="post">
-  <% if @attendee != [] %>
-    <input type="submit" name="type" value="Leave This Event">
-  <% else %>
-    <input type="submit" name="type" value="Join This Event">
-  <% end %>
-</form>
+<%if signed_in? %>
+  <form action="/events/<%= @event.id %>" method="post">
+    <% if @attendee != [] %>
+      <input type="submit" name="type" value="Leave This Event">
+    <% else %>
+      <input type="submit" name="type" value="Join This Event">
+    <% end %>
+  </form>
+<% end %>
 
-<% if @comments == nil %>
+<% if @comments == [] %>
   <p>No comments yet!</p>
 <% else %>
   <h4>Comments:</h4>
@@ -31,8 +33,7 @@
   <% end %>
 <% end %>
 
-
-<% if @attendee != [] %>
+<%if signed_in? && @attendee != [] %>
   <form action="/events/<%= @event.id %>/comments/new" method="post">
     <input type="text" name="title">
     <input type="text" name="body">
