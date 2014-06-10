@@ -49,6 +49,11 @@ get '/events/:id' do
   end
 end
 
+post '/events/new' do
+  event = Event.create(name: params["name"], location: params["location"], description: params["description"])
+  redirect "/events/#{event.id}"
+end
+
 get '/auth/github/callback' do
   auth = env['omniauth.auth']
 
