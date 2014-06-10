@@ -9,5 +9,9 @@
   <% end %>
 </ul>
 <form action="/events/<%= @event.id %>" method="post">
-  <input type="submit" value="Join This Event">
+  <% if @attendee != [] %>
+    <input type="submit" name="type" value="Leave This Event">
+  <% else %>
+    <input type="submit" name="type" value="Join This Event">
+  <% end %>
 </form>
