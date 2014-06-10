@@ -47,6 +47,7 @@ get '/events/:id' do
   @event = Event.find(id)
   @attendees = Attendee.where(event_id: id)
   @attendee = Attendee.where(user_id: current_user.id, event_id: id)
+  @comments = Comment.where(event_id: id)
   erb :'events/show'
   end
 end
@@ -68,6 +69,13 @@ post '/events/:id' do
     end
   end
   redirect "/events/#{id}"
+end
+
+post "/events/:id/comments/new" do
+  event_id = params[:id]
+  body = params[:body]
+  Comment.create(user: current_user, event_id: event_id, body: body)
+  redirect "/events/#{event_id}"
 end
 
 

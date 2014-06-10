@@ -2,12 +2,14 @@
 <h4>Location: <%= @event.location %></h4>
 <p><%= @event.description %></p>
 <br>
+
 <h4>Attendees:</h4>
 <ul>
   <% @attendees.each do |person| %>
     <li><img src="<%= person.user.avatar_url %>" height="50" width="50"> <%= person.user.username %></li>
   <% end %>
 </ul>
+
 <form action="/events/<%= @event.id %>" method="post">
   <% if @attendee != [] %>
     <input type="submit" name="type" value="Leave This Event">
@@ -15,3 +17,20 @@
     <input type="submit" name="type" value="Join This Event">
   <% end %>
 </form>
+
+<% if @comments == nil %>
+  <p>No comments yet!</p>
+<% else %>
+  <h4>Comments:</h4>
+  <% @comments.each do |comment| %>
+    <div><%= comment.user.username %>: <%= comment.body %></div>
+  <% end %>
+<% end %>
+
+
+<% if @attendee != [] %>
+  <form action="/events/<%= @event.id %>/comments/new" method="post">
+    <input type="text" name="body">
+    <input type="submit" value="Comment">
+  </form>
+<% end %>
