@@ -2,6 +2,6 @@
 <h4>Location: <%= @event.location %></h4>
 <p><%= @event.description %></p>
 <br>
-<form action="/events/:id" method="post">
+<form action="/events/<%= @event.id %>" method="post">
   <input type="submit" value="Join This Event">
 </form>
