@@ -30,7 +30,7 @@ def authenticate!
 end
 
 get '/' do
-  @events = Event.all
+  @events = Event.all.order(name: :asc)
   erb :index
 end
 
