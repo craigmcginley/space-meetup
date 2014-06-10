@@ -23,7 +23,11 @@
 <% else %>
   <h4>Comments:</h4>
   <% @comments.each do |comment| %>
-    <div><%= comment.user.username %>: <%= comment.body %></div>
+    <div>
+    <strong><%= comment.title %></strong><br/>
+    <%= comment.body %><br/>
+    <em><%= comment.user.username %></em>
+    </div>
   <% end %>
 <% end %>
 
