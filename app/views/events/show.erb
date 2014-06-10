@@ -2,6 +2,12 @@
 <h4>Location: <%= @event.location %></h4>
 <p><%= @event.description %></p>
 <br>
+<h4>Attendees:</h4>
+<ul>
+  <% @attendees.each do |person| %>
+    <li><img src="<%= person.user.avatar_url %>" height="50" width="50"> <%= person.user.username %></li>
+  <% end %>
+</ul>
 <form action="/events/<%= @event.id %>" method="post">
   <input type="submit" value="Join This Event">
 </form>

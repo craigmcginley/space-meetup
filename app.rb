@@ -45,6 +45,7 @@ get '/events/:id' do
     end
   else
   @event = Event.find(id)
+  @attendees = Attendee.where(event_id: id)
   erb :'events/show'
   end
 end
@@ -53,8 +54,12 @@ post '/events/:id' do
   id = params[:id]
   authenticate!
   event = Event.find(id)
-  Attendee.create(user: current_user, event_id: id)
-  flash[:notice] = "You've successfully joined #{event.name}"
+  attendee = Attendee.create(user: current_user, event_id: id)
+  if attendee.id == nil
+    flash[:notice] = "You've already joined!"
+  else
+    flash[:notice] = "You've successfully joined #{event.name}"
+  end
   redirect "/events/#{id}"
 end
 
