@@ -34,6 +34,12 @@ get '/' do
   erb :index
 end
 
+get '/events/:id' do
+  id = params[:id]
+  @event = Event.find(id)
+  erb :'events/show'
+end
+
 get '/auth/github/callback' do
   auth = env['omniauth.auth']
 
