@@ -47,7 +47,7 @@ get '/events/:id' do
   @event = Event.find(id)
   @attendees = Attendee.where(event_id: id)
   @attendee = Attendee.where(user_id: current_user.id, event_id: id)
-  @comments = Comment.where(event_id: id)
+  @comments = Comment.where(event_id: id).order(created_at: :desc)
   erb :'events/show'
   end
 end
@@ -74,7 +74,12 @@ end
 post "/events/:id/comments/new" do
   event_id = params[:id]
   body = params[:body]
-  Comment.create(user: current_user, event_id: event_id, body: body)
+  title = params[:title]
+  if body == ""
+    flash[:notice] = "Please enter a REAL comment."
+  else
+    Comment.create(user: current_user, event_id: event_id, body: body, title: title)
+  end
   redirect "/events/#{event_id}"
 end
 

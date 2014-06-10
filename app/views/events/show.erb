@@ -30,6 +30,7 @@
 
 <% if @attendee != [] %>
   <form action="/events/<%= @event.id %>/comments/new" method="post">
+    <input type="text" name="title">
     <input type="text" name="body">
     <input type="submit" value="Comment">
   </form>
