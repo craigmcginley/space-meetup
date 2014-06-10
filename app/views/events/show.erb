@@ -1,3 +1,7 @@
 <h2><%= @event.name %></h2>
 <h4>Location: <%= @event.location %></h4>
 <p><%= @event.description %></p>
+<br>
+<form action="/events/:id" method="post">
+  <input type="submit" value="Join This Event">
+</form>

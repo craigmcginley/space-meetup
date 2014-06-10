@@ -49,6 +49,13 @@ get '/events/:id' do
   end
 end
 
+post '/events/:id' do
+  authenticate!
+  Attendee.create(user_id: user.id, event_id: params[:id])
+  flash[:notice] = "You've successfully joined event"
+end
+
+
 post '/events/new' do
   event = Event.create(name: params["name"], location: params["location"], description: params["description"])
   redirect "/events/#{event.id}"
